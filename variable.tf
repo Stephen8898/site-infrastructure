@@ -1,15 +1,15 @@
 variable "aws_region" {
-  description = "value"
+  description = "AWS region"
   type        = string
   default     = "us-east-1"
 }
 variable "bucket_name" {
-  description = "value"
+  description = "Name of S3 bucket"
   type        = string
 }
 
 variable "domain_name" {
-  description = "value"
+  description = "Domain name for hosted zone"
   type        = string
 }
 
