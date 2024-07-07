@@ -61,11 +61,26 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 }
 resource "aws_s3_object" "file" {
   for_each     = fileset(path.module, "content/**/*.{html,css,js}")
-  bucket       = aws_s3_bucket.portfolio
+  bucket       = aws_s3_bucket.portfolio.id
   key          = replace(each.value, "/^content//", "")
   source       = each.value
   content_type = lookup(local.content_types, regex("\\.[^.]+$", each.value), null)
   source_hash  = filemd5(each.value)
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "portfolio_bucket_Lifecycle" {
+  bucket = aws_s3_bucket.portfolio.id
+  rule {
+    id = "Transition Objects to IA after 30 days"
+    filter {}
+
+    status = "Enabled"
+
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+  }
 }
 
 resource "aws_route53_record" "portfolio-site" {
