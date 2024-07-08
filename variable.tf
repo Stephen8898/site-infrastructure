@@ -3,13 +3,13 @@ variable "aws_region" {
   type        = string
   default     = "us-east-1"
 }
-variable "bucket_name" {
-  description = "Name of S3 bucket"
+variable "sub_domain_name" {
+  description = "Sub domain name for hosted zone"
   type        = string
 }
 
 variable "domain_name" {
-  description = "Domain name for hosted zone"
+  description = "Sustom domain name"
   type        = string
 }
 
@@ -18,3 +18,7 @@ variable "zone_id" {
   type        = string
 }
 
+variable "certificate_arn" {
+  description = "ARN for custom Certificate"
+  type        = string
+}
